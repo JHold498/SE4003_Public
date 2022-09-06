@@ -13,7 +13,7 @@ while True:
     x_0 = input('Enter the starting troop levels for %s: '%team1)
     try:
         x_0 = float(x_0)
-        if x_0 > 0:
+        if x_0 > 0.00:
             break
         else:
             print("The value needs to be a positive interger. Please try again.")
@@ -25,7 +25,7 @@ while True:
     y_0 = input('Enter the starting troop levels for %s: '%team2)
     try:
         y_0 = float(y_0)
-        if y_0 > 0:
+        if y_0 > 0.00:
             break
         else:
             print("The value needs to be a positive interger. Please try again.")
@@ -35,9 +35,30 @@ while True:
         print("The value needs to be a positive interger. Please try again.")
         
 #Enter lethality coefficients
-alpha = float(input('Enter the lethality coefficient for %s (interger between 1-100): '%team1))
-beta = float(input('Enter the lethality coefficient for %s (interger between 1-100): '%team2))
-
+while True:
+    alpha = input('Enter the lethality coefficient for %s (interger between 1-100): '%team1))
+    try:
+        alpha = float(alpha)
+        if alpha > 0.00:
+            break
+        else:
+            print("The value needs to be a positive interger between 1 and 100. Please try again.")
+    except TypeError:
+        print("The value needs to be a positive interger between 1 and 100. Please try again.")
+    except ValueError:    
+        print("The value needs to be a positive interger between 1 and 100. Please try again.")
+while True:    
+    beta = input('Enter the lethality coefficient for %s (interger between 1-100): '%team2))
+    try:
+        beta = float(beta)
+        if beta > 0.00:
+            break
+        else:
+            print("The value needs to be a positive interger between 1 and 100. Please try again.")
+    except TypeError:
+        print("The value needs to be a positive interger between 1 and 100. Please try again.")
+    except ValueError:    
+        print("The value needs to be a positive interger between 1 and 100. Please try again.")
 #X dot and Y dot calculations
 dt = 0.02
 time = 0
