@@ -1,34 +1,61 @@
 #John Holder
 #SE4003 - Summer 2022
 #Homework #4
+import random
 
 #Welcome Splash
 print('Welcome to the Lanchesters Law Simulator!\n')
 #Request Inputs:
 #Name Sides:
-team1, team2 = input("Enter the names of the sides: ").split()
-#Enter starting values
-x_0 = float(input('Enter the starting troop levels for %s: '%team1))
-y_0 = float(input('Enter the starting troop levels for %s: '%team2))
+team1, team2 = input("Enter the names of the sides (i.e. \"name1 name2\"): ").split()
+#Enter starting values (Error checking)
+while True:
+    x_0 = input('Enter the starting troop levels for %s: '%team1)
+    try:
+        x_0 = float(x_0)
+        if x_0 > 0:
+            break
+        else:
+            print("The value needs to be a positive interger. Please try again.")
+    except TypeError:
+        print("The value needs to be a positive interger. Please try again.")
+    except ValueError:    
+        print("The value needs to be a positive interger. Please try again.")
+while True:        
+    y_0 = input('Enter the starting troop levels for %s: '%team2)
+    try:
+        y_0 = float(y_0)
+        if y_0 > 0:
+            break
+        else:
+            print("The value needs to be a positive interger. Please try again.")
+    except TypeError:
+        print("The value needs to be a positive interger. Please try again.")
+    except ValueError:    
+        print("The value needs to be a positive interger. Please try again.")
+        
 #Enter lethality coefficients
-alpha = float(input('Enter the lethality coefficient for %s: '%team1))
-beta = float(input('Enter the lethality coefficient for %s: '%team2))
+alpha = float(input('Enter the lethality coefficient for %s (interger between 1-100): '%team1))
+beta = float(input('Enter the lethality coefficient for %s (interger between 1-100): '%team2))
+
 #X dot and Y dot calculations
-dt = 0.1
+dt = 0.02
 time = 0
 x = x_0
 y = y_0
 #Print Table Headers
-print (f"{'time':<6} {'x':<6} {'y':<6}") # all columns left justified 6 characters
-print (f"{time:<6.2f} {x:<6.0f} {y:<6.0f}")
+print (f"{'time':<6} {'x':<6} {'y':<6} {'alpha%':<6} {'beta%':<6}") # all columns left justified 6 characters
+print (f"{time:<6.2f} {x:<6.0f} {y:<6.0f} {alpha:<6.2f} {beta:<6.2f}")
 
 while x > 0 and y > 0:
     time += dt
-    x_dot = -beta*y
-    y_dot = -beta*x
+    beta = random.uniform((beta-10),(beta+10))
+    x_dot = -(beta/100)*y
+    alpha = random.uniform((alpha-10),(alpha+10))
+    y_dot = -(alpha/100)*x
     x += x_dot*dt
     y += y_dot*dt
-    print (f"{time:<6.2f} {max(x, 0):<6.0f} {max(y, 0):<6.0f}") # max will clip negative end values due to dt timestep approximation
+    print (f"{time:<6.2f} {max(x, 0):<6.0f} {max(y, 0):<6.0f} {alpha:<6.2f} {beta:<6.2f}") # max will clip negative end values due to dt timestep approximation
 if x<0:
     print('%s was defeated making %s the Victor!\n'%(team1,team2))
 else:
